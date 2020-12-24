@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema(
         listedBooks:{
             type: Array,
             default: []
+        },
+        lendRequests:{
+            type: Array,
+            default: []
         }
     },
     { timestamps: true }
