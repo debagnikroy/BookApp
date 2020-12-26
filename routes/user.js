@@ -16,7 +16,8 @@ const { userById,
         addOwnerId,
         borrowRequest,
         accept,
-        decline       
+        decline,
+        deleteBook   
     } = require('../controllers/user');
 
 router.get('/secret', requireSignin, (req, res) => {
@@ -34,6 +35,7 @@ router.get('/user/getListedBooks/:userId',  getListedBooks);
 
 router.get('/addISBN//:isbn', getBookFromISBN);
 router.get('/addISBN/:userId/:isbn', addISBN);
+router.get('/deleteBook/:userId/:isbn', deleteBook);
 router.get('/user/listBook/:userId/:isbn', transferListBooks);
 router.get('/user/backFromListBook/:userId/:isbn', backFromListBook);
 router.get('/borrowRequest/:userId/:ownerId/:isbn', borrowRequest);

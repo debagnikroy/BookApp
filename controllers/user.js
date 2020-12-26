@@ -276,7 +276,37 @@ exports.addISBN = (req,res) => {
             res.json(updatedUser);
         });
     });
-}; 
+    
+};
+
+
+//to delete a book from my possession(currentBooks)
+exports.deleteBook = (req,res) => {
+
+    User.findOne({ _id: req.profile._id }, (err, user) => {
+        if (err || !user) {
+            return res.status(400).json({
+                error: 'User not found'
+            });
+        }
+        let idx=user.currentBooks.indexOf(req.isbn);
+        if(idx!= -1){
+            user.currentBooks.splice(idx,1);
+        }
+        user.save((err, updatedUser) => {
+            if (err) {
+                console.log('USER UPDATE ERROR', err);
+                return res.status(400).json({
+                    error: 'User update failed'
+                });
+            }
+            updatedUser.hashed_password = undefined;
+            updatedUser.salt = undefined;
+            res.json(updatedUser);
+        });
+    });
+    
+};
 
 
 //sending borrow request to owner
